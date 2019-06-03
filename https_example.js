@@ -1,15 +1,17 @@
 //https://nodejs.org/api/https.html
-const https = require('https');
+var https = require('https');
 
-console.log('I did it')
-
-const options = {
-    host:'www.example.org',
-    path:'/'
+var options = {
+    host:'stream-large-file.herokuapp.com',
+    path:'/give-me-stuff-now'
 };
 
-const callback = () => {
+var callback = response => {
     console.log(`In response handler callback!`);
+    response.on('data', chunk => {
+        console.log(`[-- CHuNK OF LENGTH ${chunk.length} --]`);
+        console.log(chunk.toString());
+    })
 }
 
 console.log(`I'm about to make the request!`);
@@ -17,29 +19,28 @@ console.log(`I'm about to make the request!`);
 //Makes a request to a secure web server.
 https.request(options, callback).end();
 
+console.log(`I've made the request!`);
 /*
-const https = require('https');
+var https = require('https');
 
-const options = {
-  hostname: 'encrypted.google.com',
-  port: 443,
-  path: '/',
-  method: 'GET'
+var options = {
+    hostname: 'encrypted.google.com',
+    port: 443,
+    path: '/',
+    method: 'GET'
 };
 
-const req = https.request(options, (res) => {
-  console.log('statusCode:', res.statusCode);
-  console.log('headers:', res.headers);
+var req = https.request(options, (res) => {
+    console.log('statusCode:', res.statusCode);
+    console.log('headers:', res.headers);
 
-  res.on('data', (d) => {
+    res.on('data', (d) => {
     process.stdout.write(d);
-  });
+    });
 });
 
 req.on('error', (e) => {
-  console.error(e);
+    console.error(e);
 });
 req.end();
 */
-
-console.log(`I've made the request!`);

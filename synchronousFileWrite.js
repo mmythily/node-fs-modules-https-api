@@ -5,4 +5,4 @@ var fileData = 'Testing sync file write. \n';
 
 fs.writeFileSync(filePath, fileData);
 
-console.log('successfulyy wrote to', filePath);
+console.log('successfully wrote to', filePath);
